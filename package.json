@@ -1,0 +1,19 @@
+{
+  "name": "iterators",
+  "version": "1.0.0",
+  "description": "",
+  "main": "iterators.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "install": "^0.11.0",
+    "npm": "^5.8.0"
+  },
+  "dependencies": {
+    "random-number": "0.0.9"
+  }
+}
