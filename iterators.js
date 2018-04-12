@@ -4,14 +4,16 @@ Good Monday Morning!
 Today, we're going to talk about Iterators in JavaScript. Iterators are what
 the for ... of loop uses when iterating over an Array, but the for ... of loop
 can actually iterate over anything, Strings, Maps, Set or your own custom objects, as
-long as those object provides an Iterator.
+long as those objects provide an Iterator.
 
 I am MPJ, and you are watching Fun Fun Function.
 
 (intro)
 
-I'm going to talk about why it's good to understand iterators in a bit, but
-let's first spend a litle bit of time with some code to get a sense what they are first:
+Black: Why should I care about Iterators? Why are they in JavaScript?
+
+White: I'm going to talk about why it's good to understand iterators in a bit, but
+let's first spend a little bit of time with some code to get a sense *what* they are first:
 */
 
 ;(() => {
@@ -32,17 +34,17 @@ Let me start Quokka so that we can see what this does when executed.
 Quokka is this great little plugin that provides inline evaluation of your JavaScript. You've seen
 me use Quokka a lot in Fun Fun Function videos, just because I think it's a great tool, but
 this episode is actually graciously sponsored by Quokka, so as thanks for supporting the show,
-I'm going to show it off a little extra.
+I'm going to show it off a little extra. If you want to check it out, go to quokka.funfunfunction.com,
+that link is also in the episode description.
 
-As you see here, dragon is set to cool dragon on the first loop, angry dragon on
+Anyway, as you see here, dragon is set to cool dragon on the first loop, angry dragon on
 the second loop, and so on. It's a loop.
 
-But how does for ... of know how to loop the array. Well for ... of doesn't know
-anything about Arrays. The reason for ... of can go through the Array is because
-the Array provides an Iterator that tells for ... of how to iterate it.
+Black: How does for ... of know how to loop the array.
+Yellow: for ... of doesn't know anything about Arrays. The reason for ... of can go
+through the Array is because the Array provides an Iterator that tells for ... of how to iterate it.
 
-So that is what we're going to spend this video on understanding, how Array does this, how
-array provides an Iterator.
+Drawing: Iterator in between for...of and array.
 
 So under the hood, how does for ... of ask dragons for it's iterator? Let's have a look:
 */
@@ -62,15 +64,18 @@ So under the hood, how does for ... of ask dragons for it's iterator? Let's have
 In order to get the iterator of dragons, we call the iterator method on
 the dragons array, which gives us the iterator.
 
-If you haven't seen Symbols before, this might look a little strange. Symbols are new to JavaScript
-but they are common in many other programming languages, they are basically completely unique keys.
+Red: What is that? Symbol.iterator? That's scary because it's new.
 
-If Symbols didn't exist, JavaScript designers would have had to do something like
-dragons.___iterator___() instead, in order to have an method name obscure enough to
+White: Yeah, If you haven't seen Symbols before, this might look a little strange. Symbols is another
+new feature in JavaScript. They are common in many other programming languages,
+they are basically completely unique keys.
+
+Yellow: Symbols are great! If Symbols didn't exist, JavaScript designers would have had to do
+something like dragons.___iterator___() instead, in order to have an method name obscure enough to
 not be in conflict with other object properties. However, since Symbol.iterator is not a string
 or name, but a unique reference, there can be no conflict.
 
-Anyway, the iterator that is returned by calling this function is expected to have one method,
+White: Anyway, the iterator that is returned by calling this function is expected to have one method,
 next. If I just type iterator.next() here Quokka won't evaluate it ...*/
 
 ;(() => {
@@ -85,9 +90,7 @@ next. If I just type iterator.next() here Quokka won't evaluate it ...*/
 })()
 
 /*
-
 ...but I can use Live Comments which is a feature in the Pro (paid) version of Quokka:
-
  */
 
 ;(() => {
@@ -106,7 +109,6 @@ value, that contains the first value of the array, cool dragon, and a property c
 is a boolean set to false.
 
 Hmmm. Okay. Let's call iterator.next() a few more times and see what happens.
-
 */
 
 
@@ -127,14 +129,19 @@ Hmmm. Okay. Let's call iterator.next() a few more times and see what happens.
 /*
 
 So you can see here that calling next repeatedly gets us the next item in the
-array, until there are not items left, and then we get an object where done is true.
+array, until there are no items left, and then we get an object where done is true.
 What he just did here manually is that the for ... of loop does under the hood.
 
 So that's what the iterator interface or contract or whatever you like to call it looks
 like - array basically returns this object that we can keep calling next on to get stuff
 until the array is out of stuff.
 
-The reason that this is an interface is so that we can iterate many other things than arrays -
+Black: But WHY iterators? Why have this extra contract, interface, this protocol between
+for ... of and Array?
+
+(Drawing)
+
+Green: The reason that this is an interface is so that we can iterate many other things than arrays -
 in JavaScript, Strings, Sets, Maps, the DOM NodeList, all provide iterators so that we can
 loop them in for ... of. However, we can also make our own custom object iterable - let me
 show you how to do that.
@@ -263,10 +270,10 @@ to have this container with a predefined set of items like an array, we can gene
 on the fly, and we're also not limited to a certain length, we can just decide suddenly
 that we are done.
 
-You can create your own iterable collections which can behave in any crazy way you like.
+Green: You can create your own iterable collections which can behave in any crazy way you like.
 And we are actually just scratching the surface here, iterators can actually be asyncronous,
 which allows us to create iterators that gradually fetch data from an api over the network,
-for example. You might also have heard of the concept of generators in JavaScript. Generators
+for example.  You might also have heard of the concept of generators in JavaScript. Generators
 are actually just a thin syntatic sugar on top of Iterators, and generators are much easier to
 grasp if you grasp iterators.
 
