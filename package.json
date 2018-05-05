@@ -13,7 +13,19 @@
     "install": "^0.11.0",
     "npm": "^5.8.0"
   },
+  "quokka": {
+    "babel": {
+      "presets": [
+        "es2017"
+      ],
+      "plugins": [
+        "transform-async-generator-functions"
+      ]
+    }
+  },
   "dependencies": {
+    "babel-plugin-transform-async-generator-functions": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
     "random-number": "0.0.9"
   }
 }
